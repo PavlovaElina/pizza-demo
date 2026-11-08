@@ -1,0 +1,14 @@
+node_modules/
+dist/
+.tools/
+previews/
+.idea/
+.vscode/
+.DS_Store
+test-results/
+playwright-report/
+*.local
+*.tsbuildinfo
+.env
+.env.*
+!.env.example
