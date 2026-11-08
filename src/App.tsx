@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { readLocation } from "./utils/location";
 import LocationDialog from "./components/LocationDialog";
 import type { LocationSelection, Product } from "./types";
-import { total, money } from "./utils/cart";
+import { total } from "./utils/cart";
 import { useCart } from "./hooks/useCart";
 import { getProducts } from "./services/api";
 import SiteHeader from "./components/SiteHeader";
@@ -118,18 +118,6 @@ export default function App() {
                 ))}
               </div>
             )}
-            {count > 0 && (
-              <button
-                className="button catalog__cart"
-                onClick={() => setCartOpen(true)}
-              >
-                Перейти в корзину{" "}
-                <span>
-                  {count} шт. · {money(amount)}
-                </span>
-                <span aria-hidden="true">→</span>
-              </button>
-            )}
           </div>
         </section>
         {storageError && (
@@ -138,23 +126,13 @@ export default function App() {
             может пропасть.
           </p>
         )}
-        <DeliverySection />
+        <DeliverySection
+          count={count}
+          amount={amount}
+          onOpenCart={() => setCartOpen(true)}
+        />
       </main>
       <SiteFooter location={location} />
-      {count > 0 && !cartOpen && (
-        <div
-          className="mobile-cart-bar"
-          role="region"
-          aria-label="Быстрый переход к корзине"
-        >
-          <button className="button" onClick={() => setCartOpen(true)}>
-            <span>
-              Перейти в корзину <span className="cart-count">{count}</span>
-            </span>
-            <strong>{money(amount)} →</strong>
-          </button>
-        </div>
-      )}
       {locationOpen && (
         <LocationDialog
           selection={location}

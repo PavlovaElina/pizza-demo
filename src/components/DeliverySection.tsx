@@ -1,5 +1,14 @@
 import { useEffect, useRef } from "react";
-export default function DeliverySection() {
+import DeliveryCartButton from "./DeliveryCartButton";
+export default function DeliverySection({
+  count,
+  amount,
+  onOpenCart,
+}: {
+  count: number;
+  amount: number;
+  onOpenCart: () => void;
+}) {
   const section = useRef<HTMLElement>(null);
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -56,9 +65,6 @@ export default function DeliverySection() {
               </div>
             </li>
           </ol>
-          <a className="button" href="#catalog">
-            Выбрать пиццу <span aria-hidden="true">→</span>
-          </a>
         </div>
         <div className="delivery__visual">
           <div className="delivery__halo" />
@@ -78,6 +84,11 @@ export default function DeliverySection() {
             <br />в каждом кусочке.
           </span>
         </div>
+        <DeliveryCartButton
+          count={count}
+          amount={amount}
+          onOpenCart={onOpenCart}
+        />
       </div>
     </section>
   );
