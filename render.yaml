@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: pizza-cheff-demo
+    runtime: node
+    plan: free
+    region: frankfurt
+    buildCommand: npm ci --include=dev && npm run build
+    startCommand: npm start
+    healthCheckPath: /api/location/config
+    envVars:
+      - key: NODE_VERSION
+        value: 24.22.2
+      - key: HOST
+        value: 0.0.0.0
+      - key: YANDEX_MAPS_API_KEY
+        sync: false
+      - key: YANDEX_GEOCODER_API_KEY
+        sync: false
+      - key: YANDEX_SUGGEST_API_KEY
+        sync: false

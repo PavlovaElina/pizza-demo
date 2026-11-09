@@ -5,7 +5,8 @@ import { suggestAddresses } from "./suggest.ts";
 import { geocode } from "./geocoder.ts";
 import { cities } from "../src/data/locations.ts";
 import { createRateLimit } from "./rateLimit.ts";
-const port = Number(process.env.LOCATION_PORT ?? 3001);
+const port = Number(process.env.PORT ?? process.env.LOCATION_PORT ?? 3001);
+const host = process.env.HOST ?? "127.0.0.1";
 const browserKey = process.env.YANDEX_MAPS_API_KEY ?? "";
 const geocoderKey = process.env.YANDEX_GEOCODER_API_KEY ?? "";
 const suggestKey = process.env.YANDEX_SUGGEST_API_KEY ?? "";
@@ -171,8 +172,8 @@ const server = createServer(async (req, res) => {
     else res.end();
   }
 });
-server.listen(port, "127.0.0.1", () =>
-  console.log(`Location API: http://127.0.0.1:${port}`),
+server.listen(port, host, () =>
+  console.log(`Location API: http://${host}:${port}`),
 );
 for (const signal of ["SIGINT", "SIGTERM"] as const)
   process.on(signal, () => server.close(() => process.exit(0)));
